@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/data.dart';
-import 'package:uts/halaman_item.dart';
 
-class HalamanDashboard extends StatelessWidget {
+class HalamanDashboard extends StatefulWidget {
   final SharedPreferences spInstance;
   final String currentUsername;
   const HalamanDashboard(this.spInstance, this.currentUsername, {super.key});
+
+  @override
+  State<StatefulWidget> createState() => _HalamanDashboardState();
+}
+
+class _HalamanDashboardState extends State<HalamanDashboard> {
+  Map<Item, int> keranjang = {};
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,7 @@ class HalamanDashboard extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Text(currentUsername),
+                                Text(widget.currentUsername),
                                 const Icon(Icons.person),
                               ],
                             )
@@ -81,10 +87,30 @@ class HalamanDashboard extends StatelessWidget {
                                                         .labelSmall),
                                                 const SizedBox(height: 7),
                                                 FilledButton.tonalIcon(
-                                                  onPressed: () {},
-                                                  label: const Text("Beli"),
-                                                  icon: const Icon(
-                                                      Icons.add_shopping_cart),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      keranjang.update(item,
+                                                          (value) => ++value,
+                                                          ifAbsent: () => 1);
+                                                    });
+                                                  },
+                                                  label: const Text("Tambah"),
+                                                  icon: Stack(
+                                                      clipBehavior: Clip.none,
+                                                      children: [
+                                                        const Icon(Icons
+                                                            .add_shopping_cart),
+                                                        keranjang[item] != null
+                                                            ? Positioned(
+                                                                top: -7,
+                                                                right: -7,
+                                                                child: Badge(
+                                                                    label: Text(
+                                                                        keranjang[item]
+                                                                            .toString())))
+                                                            : const SizedBox
+                                                                .shrink()
+                                                      ]),
                                                 )
                                               ]))
                                     ],
