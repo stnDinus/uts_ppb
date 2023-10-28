@@ -92,7 +92,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
                                       label: "Tutup",
                                       onPressed: () {
                                         ScaffoldMessenger.of(context)
-                                            .removeCurrentSnackBar();
+                                            .hideCurrentSnackBar();
                                       }),
                                 ));
                                 return;

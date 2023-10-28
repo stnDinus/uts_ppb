@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uts/halaman_user.dart';
 
 class HalamanEditProfile extends StatefulWidget {
   final SharedPreferences spInstance;
@@ -67,6 +68,10 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
       });
       return;
     }
+
+    setState(() {
+      passwordLamaError = null;
+    });
   }
 
   void validasiPasswordBaru() {
@@ -183,7 +188,10 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
                     const SizedBox(height: 14),
                     TextField(
                       controller: passwordBaruController,
-                      onChanged: (_) => validasiPasswordBaru(),
+                      onChanged: (_) {
+                        validasiPasswordBaru();
+                        validasiKonfirmasiPasswordBaru();
+                      },
                       obscureText: !showPasswordBaru,
                       decoration: InputDecoration(
                           icon: const Icon(Icons.key),
@@ -219,9 +227,13 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
                       Expanded(
                         child: FilledButton.icon(
                             onPressed: (usernameBaruError == null &&
+                                    passwordLamaError == null &&
                                     passwordBaruError == null &&
                                     konfirmasiPasswordBaruError == null)
                                 ? () async {
+                                    imitasiTabelUser
+                                        .remove(widget.currentUsername);
+
                                     imitasiTabelUser.addEntries({
                                       usernameBaruController.text:
                                           passwordBaruController.text
@@ -232,7 +244,15 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
 
                                     if (!context.mounted) return;
 
-                                    Navigator.pop(context);
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HalamanUser(
+                                                  widget.spInstance,
+                                                  passMessage:
+                                                      "Data berhasil disimpan, silahkan login kembali",
+                                                )),
+                                        (route) => false);
                                   }
                                 : null,
                             icon: const Icon(Icons.save),

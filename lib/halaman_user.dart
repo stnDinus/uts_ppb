@@ -1,12 +1,38 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/halaman_login.dart';
 import 'package:uts/halaman_registrasi.dart';
 
-class HalamanUser extends StatelessWidget {
+class HalamanUser extends StatefulWidget {
   final SharedPreferences spInstance;
+  final String? passMessage;
 
-  const HalamanUser(this.spInstance, {super.key});
+  const HalamanUser(this.spInstance, {super.key, this.passMessage});
+
+  @override
+  State<StatefulWidget> createState() => _HalamanUserState();
+}
+
+class _HalamanUserState extends State<HalamanUser> {
+  @override
+  void initState() {
+    if (widget.passMessage != null) {
+      Timer(Duration.zero, () {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(widget.passMessage!),
+          action: SnackBarAction(
+            label: "Tutup",
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        ));
+      });
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +54,7 @@ class HalamanUser extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        HalamanLogin(spInstance)));
+                                        HalamanLogin(widget.spInstance)));
                           },
                         ),
                         Padding(
@@ -46,7 +72,7 @@ class HalamanUser extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        HalamanRegistrasi(spInstance)));
+                                        HalamanRegistrasi(widget.spInstance)));
                           },
                         ),
                       ],
