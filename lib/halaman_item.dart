@@ -23,7 +23,7 @@ class HalamanItem extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 1,
                   child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(7)),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: Hero(
                           tag: item.linkGambar,
                           child:
