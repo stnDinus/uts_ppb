@@ -1,38 +1,68 @@
-class ItemMenu {
+class Item {
   String nama, deskripsi, linkGambar;
   int harga;
-  ItemMenu(this.nama, this.deskripsi, this.linkGambar, this.harga);
+  Item(this.nama, this.deskripsi, this.linkGambar, this.harga);
 }
 
-List<ItemMenu> menuImitasi = [
-  ItemMenu(
-    "Nasi Goreng",
-    "Nasi goreng, an Indonesian fried rice dish, often served with chicken, prawns, and a fried egg.",
-    "assets/nasi-goreng.webp",
-    15000,
-  ),
-  ItemMenu(
-    "Rendang",
-    "Rendang is a flavorful and tender Indonesian beef stew, simmered with coconut milk and a blend of spices.",
-    "assets/rendang.jpg",
-    20000,
-  ),
-  ItemMenu(
-    "Sate Ayam",
-    "Sate ayam, or chicken satay, features skewered and grilled chicken served with a peanut sauce.",
-    "assets/sate-ayam.jpg",
+List<Item> listItem = [
+  Item(
+    "Jeruk",
+    "Buah jeruk segar hasil pertanian.",
+    "assets/jeruk.jpg",
     10000,
   ),
-  ItemMenu(
-    "Gado-Gado",
-    "Gado-gado is an Indonesian salad with a peanut sauce dressing, made with mixed vegetables and tofu.",
-    "assets/gado-gado.jpg",
-    7500,
+  Item(
+    "Pohon Mangga",
+    "Bibit pohon mangga untuk ditanam.",
+    "assets/mangga.jpg",
+    12000,
   ),
-  ItemMenu(
-    "Mie Goreng",
-    "Mie goreng, or fried noodles, is a popular Indonesian dish with stir-fried noodles, vegetables, and your choice of protein.",
-    "assets/mie-goreng.jpg",
-    5000,
+  Item(
+    "Pupuk Cair Organik",
+    "Pupuk cair organik untuk pertanian.",
+    "assets/pupuk.jpg",
+    15000,
+  ),
+  Item(
+    "Tebu",
+    "Gula tebu hasil pertanian.",
+    "assets/tebu.jpg",
+    11000,
+  ),
+  Item(
+    "Bibit Kelapa",
+    "Bibit kelapa untuk ditanam.",
+    "assets/kelapa.jpg",
+    13000,
+  ),
+  Item(
+    "Pupuk NPK",
+    "Pupuk NPK untuk pertanian.",
+    "assets/npk.jpg",
+    14000,
+  ),
+  Item(
+    "Tomat",
+    "Tomat segar hasil pertanian.",
+    "assets/tomat.jpg",
+    12000,
+  ),
+  Item(
+    "Bibit Jeruk",
+    "Bibit jeruk untuk ditanam.",
+    "assets/bibit-jeruk.jpg",
+    11000,
+  ),
+  Item(
+    "Pupuk Organik Granular",
+    "Pupuk organik granular untuk pertanian.",
+    "assets/granular.jpg",
+    16000,
+  ),
+  Item(
+    "Stroberi",
+    "Stroberi segar hasil pertanian.",
+    "assets/stroberi.jpg",
+    13000,
   ),
 ];

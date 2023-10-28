@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uts/data.dart';
 
 class HalamanItem extends StatelessWidget {
-  final ItemMenu item;
+  final Item item;
 
   const HalamanItem(this.item, {super.key});
 
