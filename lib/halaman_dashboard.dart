@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/data.dart';
+import 'package:uts/halaman_edit_profile.dart';
 import 'package:uts/halaman_item.dart';
 
 class HalamanDashboard extends StatefulWidget {
@@ -40,7 +41,14 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                       Theme.of(context).textTheme.displaySmall,
                                 ),
                                 ElevatedButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HalamanEditProfile(
+                                                      widget.spInstance)));
+                                    },
                                     label: Text(widget.currentUsername),
                                     icon: const Icon(Icons.person))
                               ])),

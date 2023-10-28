@@ -47,25 +47,11 @@ class _HalamanLoginState extends State<HalamanLogin> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Row(children: [
-                        Icon(
-                          Icons.arrow_back,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Kembali",
-                          style: Theme.of(context).textTheme.bodyLarge?.apply(
-                              color: Theme.of(context).colorScheme.primary),
-                        )
-                      ]),
-                    ),
+                    Row(children: [
+                      const BackButton(),
+                      Text("Kembali",
+                          style: Theme.of(context).textTheme.bodyLarge)
+                    ]),
                     const SizedBox(height: 14),
                     TextField(
                       controller: usernameController,
