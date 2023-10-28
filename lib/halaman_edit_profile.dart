@@ -4,19 +4,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HalamanEditProfile extends StatefulWidget {
   final SharedPreferences spInstance;
-  const HalamanEditProfile(this.spInstance, {super.key});
+  final String currentUsername;
+  const HalamanEditProfile(this.spInstance, this.currentUsername, {super.key});
 
   @override
   State<StatefulWidget> createState() => _HalamanEditProfileState();
 }
 
 class _HalamanEditProfileState extends State<HalamanEditProfile> {
-  TextEditingController usernameController = TextEditingController(),
-      passwordController = TextEditingController(),
-      konfirmasiPasswordController = TextEditingController();
-  bool showPassword = false, showKonfirmasiPassword = false;
+  TextEditingController usernameBaruController = TextEditingController(),
+      passwordLamaController = TextEditingController(),
+      passwordBaruController = TextEditingController(),
+      konfirmasiPasswordBaruController = TextEditingController();
+  bool showPasswordLama = false,
+      showPasswordBaru = false,
+      showKonfirmasiPasswordBaru = false;
   Map<String, dynamic> imitasiTabelUser = {};
-  String? usernameError, passwordError, konfirmasiPasswordError;
+  String? usernameBaruError,
+      passwordLamaError = "Password lama salah",
+      passwordBaruError = "Password tidak boleh kosong",
+      konfirmasiPasswordBaruError;
 
   @override
   void initState() {
@@ -26,84 +33,106 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
 
     imitasiTabelUser =
         imitasiTabelUserSp == null ? {} : json.decode(imitasiTabelUserSp);
+
+    usernameBaruController.text = widget.currentUsername;
   }
 
-  void validasiUsername(String value) {
-    if (value.isEmpty) {
+  void validasiUsernameBaru() {
+    if (usernameBaruController.text.isEmpty) {
       setState(() {
-        usernameError = "Username tidak boleh kosong";
+        usernameBaruError = "Username tidak boleh kosong";
       });
       return;
     }
 
-    if (imitasiTabelUser.keys.contains(value)) {
+    if (imitasiTabelUser.keys.contains(usernameBaruController.text) &&
+        usernameBaruController.text != widget.currentUsername) {
       setState(() {
-        usernameError = "Username telah terpakai";
+        usernameBaruError = "Username telah terpakai";
       });
       return;
     }
 
     setState(() {
-      usernameError = null;
+      usernameBaruError = null;
     });
   }
 
-  void validasiPassword(String value) {
-    if (value.isEmpty) {
+  void validasiPasswordLama() {
+    final String password = passwordLamaController.text;
+
+    if (password != imitasiTabelUser[widget.currentUsername].toString()) {
       setState(() {
-        passwordError = "Password tidak boleh kosong";
+        passwordLamaError = "Password lama salah";
+      });
+      return;
+    }
+  }
+
+  void validasiPasswordBaru() {
+    final String password = passwordBaruController.text;
+
+    if (password.isEmpty) {
+      setState(() {
+        passwordBaruError = "Password tidak boleh kosong";
       });
       return;
     }
 
-    if (!RegExp(r"[A-Z]").hasMatch(value)) {
+    if (!RegExp(r"[A-Z]").hasMatch(password)) {
       setState(() {
-        passwordError = "Password harus mengandung huruf besar";
+        passwordBaruError = "Password harus mengandung huruf besar";
       });
       return;
     }
 
-    if (!RegExp(r"[a-z]").hasMatch(value)) {
+    if (!RegExp(r"[a-z]").hasMatch(password)) {
       setState(() {
-        passwordError = "Password harus mengandung huruf kecil";
+        passwordBaruError = "Password harus mengandung huruf kecil";
       });
       return;
     }
 
-    if (!RegExp(r"[0-9]").hasMatch(value)) {
+    if (!RegExp(r"[0-9]").hasMatch(password)) {
       setState(() {
-        passwordError = "Password harus mengandung angka";
+        passwordBaruError = "Password harus mengandung angka";
       });
       return;
     }
 
     setState(() {
-      passwordError = null;
+      passwordBaruError = null;
     });
   }
 
-  void validasiKonfirmasiPassword(String value) {
-    if (value != passwordController.text) {
+  void validasiKonfirmasiPasswordBaru() {
+    if (konfirmasiPasswordBaruController.text != passwordBaruController.text) {
       setState(() {
-        konfirmasiPasswordError = "Password tidak sama";
+        konfirmasiPasswordBaruError = "Password tidak sama";
       });
       return;
     }
 
     setState(() {
-      konfirmasiPasswordError = null;
+      konfirmasiPasswordBaruError = null;
     });
   }
 
-  void toggleShowPassword() {
+  void toggleShowPasswordLama() {
     setState(() {
-      showPassword = !showPassword;
+      showPasswordLama = !showPasswordLama;
     });
   }
 
-  void toggleShowKonfirmasiPassword() {
+  void toggleShowPasswordBaru() {
     setState(() {
-      showKonfirmasiPassword = !showKonfirmasiPassword;
+      showPasswordBaru = !showPasswordBaru;
+    });
+  }
+
+  void toggleShowKonfirmasiPasswordBaru() {
+    setState(() {
+      showKonfirmasiPasswordBaru = !showKonfirmasiPasswordBaru;
     });
   }
 
@@ -126,26 +155,26 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
                     ]),
                     const SizedBox(height: 14),
                     TextField(
-                      controller: usernameController,
-                      onChanged: (value) => validasiUsername(value),
+                      controller: usernameBaruController,
+                      onChanged: (_) => validasiUsernameBaru(),
                       decoration: InputDecoration(
                           icon: const Icon(Icons.person),
                           label: const Text("Username"),
-                          errorText: usernameError,
+                          errorText: usernameBaruError,
                           border: const OutlineInputBorder()),
                     ),
                     const SizedBox(height: 14),
                     TextField(
-                      controller: passwordController,
-                      onChanged: (value) => validasiPassword(value),
-                      obscureText: !showPassword,
+                      controller: passwordLamaController,
+                      onChanged: (_) => validasiPasswordLama(),
+                      obscureText: !showPasswordLama,
                       decoration: InputDecoration(
                           icon: const Icon(Icons.key),
-                          label: const Text("Password"),
-                          errorText: passwordError,
+                          label: const Text("Password lama"),
+                          errorText: passwordLamaError,
                           suffixIcon: GestureDetector(
-                            onTap: toggleShowPassword,
-                            child: Icon(showPassword
+                            onTap: toggleShowPasswordLama,
+                            child: Icon(showPasswordLama
                                 ? Icons.visibility
                                 : Icons.visibility_off),
                           ),
@@ -153,16 +182,33 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
                     ),
                     const SizedBox(height: 14),
                     TextField(
-                      controller: konfirmasiPasswordController,
-                      onChanged: (value) => validasiKonfirmasiPassword(value),
-                      obscureText: !showKonfirmasiPassword,
+                      controller: passwordBaruController,
+                      onChanged: (_) => validasiPasswordBaru(),
+                      obscureText: !showPasswordBaru,
+                      decoration: InputDecoration(
+                          icon: const Icon(Icons.key),
+                          label: const Text("Password baru"),
+                          errorText: passwordBaruError,
+                          suffixIcon: GestureDetector(
+                            onTap: toggleShowPasswordBaru,
+                            child: Icon(showPasswordBaru
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
+                          border: const OutlineInputBorder()),
+                    ),
+                    const SizedBox(height: 14),
+                    TextField(
+                      controller: konfirmasiPasswordBaruController,
+                      onChanged: (_) => validasiKonfirmasiPasswordBaru(),
+                      obscureText: !showKonfirmasiPasswordBaru,
                       decoration: InputDecoration(
                           icon: const Icon(Icons.check_circle),
                           label: const Text("Konfirmasi password"),
-                          errorText: konfirmasiPasswordError,
+                          errorText: konfirmasiPasswordBaruError,
                           suffixIcon: GestureDetector(
-                            onTap: toggleShowKonfirmasiPassword,
-                            child: Icon(showKonfirmasiPassword
+                            onTap: toggleShowKonfirmasiPasswordBaru,
+                            child: Icon(showKonfirmasiPasswordBaru
                                 ? Icons.visibility
                                 : Icons.visibility_off),
                           ),
@@ -172,13 +218,13 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
                     Row(children: [
                       Expanded(
                         child: FilledButton.icon(
-                            onPressed: (usernameError == null &&
-                                    passwordError == null &&
-                                    konfirmasiPasswordError == null)
+                            onPressed: (usernameBaruError == null &&
+                                    passwordBaruError == null &&
+                                    konfirmasiPasswordBaruError == null)
                                 ? () async {
                                     imitasiTabelUser.addEntries({
-                                      usernameController.text:
-                                          passwordController.text
+                                      usernameBaruController.text:
+                                          passwordBaruController.text
                                     }.entries);
 
                                     await widget.spInstance.setString(

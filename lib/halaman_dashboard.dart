@@ -47,7 +47,8 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   HalamanEditProfile(
-                                                      widget.spInstance)));
+                                                      widget.spInstance,
+                                                      widget.currentUsername)));
                                     },
                                     label: Text(widget.currentUsername),
                                     icon: const Icon(Icons.person))
