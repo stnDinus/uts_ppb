@@ -39,12 +39,10 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                   style:
                                       Theme.of(context).textTheme.displaySmall,
                                 ),
-                                Row(
-                                  children: [
-                                    Text(widget.currentUsername),
-                                    const Icon(Icons.person),
-                                  ],
-                                )
+                                ElevatedButton.icon(
+                                    onPressed: () {},
+                                    label: Text(widget.currentUsername),
+                                    icon: const Icon(Icons.person))
                               ])),
                       GridView.count(
                         physics: const ClampingScrollPhysics(),
@@ -70,10 +68,12 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                           Expanded(
                                               child: Row(children: [
                                             Expanded(
-                                              child: Image.asset(
-                                                item.linkGambar,
-                                                fit: BoxFit.cover,
-                                              ),
+                                              child: Hero(
+                                                  tag: item.linkGambar,
+                                                  child: Image.asset(
+                                                    item.linkGambar,
+                                                    fit: BoxFit.cover,
+                                                  )),
                                             )
                                           ])),
                                           Padding(

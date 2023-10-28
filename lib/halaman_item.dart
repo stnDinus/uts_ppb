@@ -21,8 +21,14 @@ class HalamanItem extends StatelessWidget {
                   Text("Kembali", style: Theme.of(context).textTheme.titleLarge)
                 ]),
                 AspectRatio(
-                    aspectRatio: 1,
-                    child: Image.asset(item.linkGambar, fit: BoxFit.cover)),
+                  aspectRatio: 1,
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(7)),
+                      child: Hero(
+                          tag: item.linkGambar,
+                          child:
+                              Image.asset(item.linkGambar, fit: BoxFit.cover))),
+                ),
                 const SizedBox(height: 7),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
