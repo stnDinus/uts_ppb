@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/data.dart';
 import 'package:uts/halaman_edit_profile.dart';
 import 'package:uts/halaman_item.dart';
+import 'package:uts/halaman_pembayaran.dart';
 
 class HalamanDashboard extends StatefulWidget {
   final SharedPreferences spInstance;
@@ -151,7 +152,17 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                   bottom: 0,
                   right: 0,
                   child: FloatingActionButton.extended(
-                      onPressed: () {},
+                      onPressed: () async {
+                        Map<Item, int> keranjangBaru = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    HalamanPembayaran(keranjang)));
+
+                        setState(() {
+                          keranjang = keranjangBaru;
+                        });
+                      },
                       icon: const Icon(Icons.shopping_cart_checkout),
                       label: Text(
                           "Total:\n${nFormatter.format(keranjang.entries.map((entry) => entry.key.harga * entry.value).reduce((a, b) => a + b))}")))
