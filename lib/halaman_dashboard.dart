@@ -37,22 +37,35 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Dashboard",
+                                  "Estalase",
                                   style:
                                       Theme.of(context).textTheme.displaySmall,
                                 ),
-                                ElevatedButton.icon(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  HalamanEditProfile(
-                                                      widget.spInstance,
-                                                      widget.currentUsername)));
-                                    },
-                                    label: Text(widget.currentUsername),
-                                    icon: const Icon(Icons.person))
+                                Row(
+                                  children: [
+                                    IconButton(
+                                        icon: const Icon(Icons.call),
+                                        onPressed: () {}),
+                                    IconButton(
+                                        icon: const Icon(Icons.mail),
+                                        onPressed: () {}),
+                                    IconButton(
+                                        icon: const Icon(Icons.location_on),
+                                        onPressed: () {}),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HalamanEditProfile(
+                                                          widget.spInstance,
+                                                          widget
+                                                              .currentUsername)));
+                                        },
+                                        icon: const Icon(Icons.person))
+                                  ],
+                                )
                               ])),
                       GridView.count(
                         physics: const ClampingScrollPhysics(),
