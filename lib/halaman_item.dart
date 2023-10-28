@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:uts/data.dart';
 
 class HalamanItem extends StatelessWidget {
@@ -14,6 +15,7 @@ class HalamanItem extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(7),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -22,34 +24,26 @@ class HalamanItem extends StatelessWidget {
                   child: Padding(
                       padding: const EdgeInsets.only(top: 7, bottom: 7),
                       child: Row(children: [
-                        Icon(
-                          Icons.arrow_back,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(
-                          width: 7,
-                        ),
-                        Text(
+                        const Icon(Icons.arrow_back),
+                        const SizedBox(width: 7),
+                        Flexible(
+                            child: Text(
                           item.nama,
                           style: Theme.of(context).textTheme.titleLarge,
-                        )
+                        ))
                       ])),
                 ),
-                Image.asset(
-                  item.linkGambar,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
+                AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.asset(item.linkGambar, fit: BoxFit.cover)),
+                const SizedBox(height: 7),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(item.deskripsi),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    Text("${item.harga}"),
+                    const SizedBox(height: 7),
+                    Text(NumberFormat("¤ ,###", "id").format(item.harga),
+                        style: Theme.of(context).textTheme.labelSmall),
                   ],
                 ),
               ],

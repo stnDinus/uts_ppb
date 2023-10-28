@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/data.dart';
 import 'package:uts/halaman_item.dart';
@@ -19,7 +20,7 @@ class HalamanDashboard extends StatelessWidget {
               child: ListView(
                 children: [
                   Padding(
-                      padding: const EdgeInsets.only(top: 7, bottom: 7),
+                      padding: const EdgeInsets.only(top: 14, bottom: 14),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -39,47 +40,53 @@ class HalamanDashboard extends StatelessWidget {
                     shrinkWrap: true,
                     mainAxisSpacing: 7,
                     crossAxisSpacing: 7,
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     children: listItem
-                        .map((item) => InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (route) => HalamanItem(item)));
-                              },
-                              child: Padding(
-                                  padding: const EdgeInsets.all(7),
+                        .map((item) => Card(
+                              clipBehavior: Clip.hardEdge,
+                              child: InkWell(
+                                  onTap: () {},
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
-                                          flex: 1,
                                           child: Row(children: [
-                                            Expanded(
-                                              child: Image.asset(
-                                                item.linkGambar,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            )
-                                          ])),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(item.nama),
-                                              Text(
-                                                item.deskripsi,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelSmall,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              Text(item.harga.toString()),
-                                            ]),
-                                      )
+                                        Expanded(
+                                          child: Image.asset(
+                                            item.linkGambar,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      ])),
+                                      Padding(
+                                          padding: const EdgeInsets.all(7),
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(item.nama,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium,
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                                const SizedBox(height: 7),
+                                                Text(
+                                                    NumberFormat("¤ ,###", "id")
+                                                        .format(item.harga),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelSmall),
+                                                const SizedBox(height: 7),
+                                                FilledButton.tonalIcon(
+                                                  onPressed: () {},
+                                                  label: const Text("Beli"),
+                                                  icon: const Icon(
+                                                      Icons.add_shopping_cart),
+                                                )
+                                              ]))
                                     ],
                                   )),
                             ))
