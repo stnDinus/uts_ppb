@@ -89,13 +89,13 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis),
-                                                    const SizedBox(height: 7),
-                                                    Text(
-                                                        nFormatter
-                                                            .format(item.harga),
+                                                    Text(item.deskripsi,
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .labelSmall),
+                                                    const SizedBox(height: 7),
+                                                    Text(nFormatter
+                                                        .format(item.harga)),
                                                     const SizedBox(height: 7),
                                                     FilledButton.tonalIcon(
                                                       onPressed: () {
