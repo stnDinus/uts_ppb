@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/data.dart';
+import 'package:uts/halaman_item.dart';
 
 class HalamanDashboard extends StatefulWidget {
   final SharedPreferences spInstance;
@@ -55,7 +56,13 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                             .map((item) => Card(
                                   clipBehavior: Clip.hardEdge,
                                   child: InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HalamanItem(item)));
+                                      },
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
