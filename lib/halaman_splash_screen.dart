@@ -17,7 +17,7 @@ class _HalamanSplashScreenState extends State<HalamanSplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 1), () async {
+    Timer(const Duration(seconds: 2), () async {
       SharedPreferences spInstance = await SharedPreferences.getInstance();
 
       if (!context.mounted) return;
