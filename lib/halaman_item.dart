@@ -20,15 +20,12 @@ class HalamanItem extends StatelessWidget {
                   const BackButton(),
                   Text("Kembali", style: Theme.of(context).textTheme.titleLarge)
                 ]),
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(12)),
-                      child: Hero(
-                          tag: item.linkGambar,
-                          child:
-                              Image.asset(item.linkGambar, fit: BoxFit.cover))),
-                ),
+                ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    child: Hero(
+                        tag: item.linkGambar,
+                        child:
+                            Image.asset(item.linkGambar, fit: BoxFit.cover))),
                 const SizedBox(height: 7),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
