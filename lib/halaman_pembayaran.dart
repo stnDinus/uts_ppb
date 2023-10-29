@@ -29,7 +29,7 @@ class _HalamanPembayaranState extends State<HalamanPembayaran> {
             child: Center(
                 child: Container(
               constraints: const BoxConstraints(maxWidth: 500),
-              child: Column(children: [
+              child: ListView(children: [
                 const SizedBox(height: 14),
                 Row(
                   children: [
@@ -44,28 +44,26 @@ class _HalamanPembayaranState extends State<HalamanPembayaran> {
                 ),
                 const SizedBox(height: 14),
                 keranjang.isEmpty
-                    ? Expanded(
-                        child: Center(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.production_quantity_limits,
-                                size: 100),
-                            const SizedBox(height: 14),
-                            Text("Keranjang kosong",
-                                style: Theme.of(context).textTheme.titleLarge),
-                            const SizedBox(height: 7),
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 300),
-                              child: const Text(
-                                  "Silahkan kembali ke halaman dashboard untuk melanjutkan pembelanjaan",
-                                  textAlign: TextAlign.center),
-                            )
-                          ],
-                        )),
-                      )
-                    : Expanded(
-                        child: ListView(
+                    ? Center(
+                        child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 100),
+                          const Icon(Icons.production_quantity_limits,
+                              size: 100),
+                          const SizedBox(height: 14),
+                          Text("Keranjang kosong",
+                              style: Theme.of(context).textTheme.titleLarge),
+                          const SizedBox(height: 7),
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 300),
+                            child: const Text(
+                                "Silahkan kembali ke halaman dashboard untuk melanjutkan pembelanjaan",
+                                textAlign: TextAlign.center),
+                          )
+                        ],
+                      ))
+                    : Column(
                         children: [
                           ...(keranjang.keys.map((item) => Card(
                               child: Padding(
@@ -119,7 +117,7 @@ class _HalamanPembayaranState extends State<HalamanPembayaran> {
                               child: Text(
                                   "Bayar: ${nFormatter.format(keranjang.entries.map((entry) => entry.key.harga * entry.value).reduce((a, b) => a + b))}"))
                         ],
-                      )),
+                      ),
               ]),
             ))));
   }
