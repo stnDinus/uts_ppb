@@ -112,6 +112,7 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                                       tag: item.linkGambar,
                                                       child: Image.asset(
                                                           item.linkGambar,
+                                                          width: double.infinity,
                                                           fit: BoxFit.cover))),
                                               Padding(
                                                   padding:
