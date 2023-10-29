@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/halaman_user.dart';
 
@@ -33,7 +34,14 @@ class _HalamanSplashScreenState extends State<HalamanSplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child: Text("Selamat Datang!",
-                style: Theme.of(context).textTheme.titleLarge)));
+            child: Hero(
+      tag: "title",
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Icon(Icons.eco_sharp, size: 50, color: Color(0xFF8EC07C)),
+        Text("Pejuang Tani",
+            style: GoogleFonts.unna(
+                textStyle: Theme.of(context).textTheme.displaySmall))
+      ]),
+    )));
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts/halaman_login.dart';
 import 'package:uts/halaman_registrasi.dart';
@@ -39,14 +40,28 @@ class _HalamanUserState extends State<HalamanUser> {
     return Scaffold(
         body: Center(
             child: Container(
-                constraints: const BoxConstraints(maxWidth: 500),
+                constraints: const BoxConstraints(maxWidth: 400),
                 child: Padding(
                     padding: const EdgeInsets.all(7),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        ElevatedButton.icon(
+                        Hero(
+                            tag: "title",
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.eco_sharp,
+                                      size: 50, color: Color(0xFF8EC07C)),
+                                  Text("Pejuang Tani",
+                                      style: GoogleFonts.unna(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall))
+                                ])),
+                        const SizedBox(height: 28),
+                        FilledButton.icon(
                           label: const Text("Login"),
                           icon: const Icon(Icons.login),
                           onPressed: () {
@@ -57,14 +72,8 @@ class _HalamanUserState extends State<HalamanUser> {
                                         HalamanLogin(widget.spInstance)));
                           },
                         ),
-                        Padding(
-                            padding: const EdgeInsets.all(14),
-                            child: Text(
-                              "atau",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.labelSmall,
-                            )),
-                        ElevatedButton.icon(
+                        const SizedBox(height: 14),
+                        OutlinedButton.icon(
                           label: const Text("Registrasi"),
                           icon: const Icon(Icons.person),
                           onPressed: () {
