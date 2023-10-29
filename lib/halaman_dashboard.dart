@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uts/data.dart';
 import 'package:uts/halaman_edit_profile.dart';
 import 'package:uts/halaman_item.dart';
@@ -45,13 +46,29 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                   children: [
                                     IconButton(
                                         icon: const Icon(Icons.call),
-                                        onPressed: () {}),
+                                        onPressed: () {
+                                          launchUrl(Uri(
+                                              scheme: "tel",
+                                              host: "111202214433"));
+                                        }),
                                     IconButton(
                                         icon: const Icon(Icons.mail),
-                                        onPressed: () {}),
+                                        onPressed: () {
+                                          launchUrl(Uri(
+                                              scheme: "mailto",
+                                              path:
+                                                  "111202214433@mhs.dinus.ac.id",
+                                              query: "subject=Pejuang Tani"));
+                                        }),
                                     IconButton(
                                         icon: const Icon(Icons.location_on),
-                                        onPressed: () {}),
+                                        onPressed: () {
+                                          launchUrl(Uri(
+                                              scheme: "geo",
+                                              path:
+                                                  "-7.229492701483863,109.81573124197979",
+                                              query: "q=Desa Ratamba"));
+                                        }),
                                     IconButton(
                                         onPressed: () {
                                           Navigator.push(
