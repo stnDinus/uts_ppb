@@ -86,6 +86,7 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                               ])),
                       GridView.count(
                         physics: const ClampingScrollPhysics(),
+                        childAspectRatio: 1 / 2,
                         shrinkWrap: true,
                         mainAxisSpacing: 7,
                         crossAxisSpacing: 7,
@@ -106,16 +107,11 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                              child: Row(children: [
-                                            Expanded(
                                               child: Hero(
                                                   tag: item.linkGambar,
                                                   child: Image.asset(
-                                                    item.linkGambar,
-                                                    fit: BoxFit.cover,
-                                                  )),
-                                            )
-                                          ])),
+                                                      item.linkGambar,
+                                                      fit: BoxFit.cover))),
                                           Padding(
                                               padding: const EdgeInsets.all(7),
                                               child: Column(
