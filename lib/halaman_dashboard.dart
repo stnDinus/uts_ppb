@@ -84,92 +84,101 @@ class _HalamanDashboardState extends State<HalamanDashboard> {
                                   ],
                                 )
                               ])),
-                      GridView.count(
-                        physics: const ClampingScrollPhysics(),
-                        childAspectRatio: 1 / 2,
-                        shrinkWrap: true,
-                        mainAxisSpacing: 7,
-                        crossAxisSpacing: 7,
-                        crossAxisCount: 2,
-                        children: listItem
-                            .map((item) => Card(
-                                  clipBehavior: Clip.hardEdge,
-                                  child: InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HalamanItem(item)));
-                                      },
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                              child: Hero(
-                                                  tag: item.linkGambar,
-                                                  child: Image.asset(
-                                                      item.linkGambar,
-                                                      fit: BoxFit.cover))),
-                                          Padding(
-                                              padding: const EdgeInsets.all(7),
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(item.nama,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis),
-                                                    Text(item.deskripsi,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .labelSmall),
-                                                    const SizedBox(height: 7),
-                                                    Text(nFormatter
-                                                        .format(item.harga)),
-                                                    const SizedBox(height: 7),
-                                                    FilledButton.tonalIcon(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          keranjang.update(
-                                                              item,
-                                                              (value) =>
-                                                                  ++value,
-                                                              ifAbsent: () =>
-                                                                  1);
-                                                        });
-                                                      },
-                                                      label:
-                                                          const Text("Tambah"),
-                                                      icon: Stack(
-                                                          clipBehavior:
-                                                              Clip.none,
-                                                          children: [
-                                                            const Icon(Icons
-                                                                .add_shopping_cart),
-                                                            keranjang[item] !=
-                                                                    null
-                                                                ? Positioned(
-                                                                    top: -7,
-                                                                    right: -7,
-                                                                    child: Badge(
-                                                                        label: Text(keranjang[item]
-                                                                            .toString())))
-                                                                : const SizedBox
-                                                                    .shrink()
-                                                          ]),
-                                                    )
-                                                  ]))
-                                        ],
-                                      )),
-                                ))
-                            .toList(),
-                      )
+                      LayoutBuilder(builder: (context, constraints) {
+                        return GridView.count(
+                            physics: const ClampingScrollPhysics(),
+                            childAspectRatio: 1 / 2,
+                            shrinkWrap: true,
+                            mainAxisSpacing: 7,
+                            crossAxisSpacing: 7,
+                            crossAxisCount: constraints.maxWidth >= 500 ? 3 : 2,
+                            children: listItem
+                                .map((item) => Card(
+                                      clipBehavior: Clip.hardEdge,
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HalamanItem(item)));
+                                          },
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                  child: Hero(
+                                                      tag: item.linkGambar,
+                                                      child: Image.asset(
+                                                          item.linkGambar,
+                                                          fit: BoxFit.cover))),
+                                              Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(7),
+                                                  child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(item.nama,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .titleMedium,
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis),
+                                                        Text(item.deskripsi,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .labelSmall),
+                                                        const SizedBox(
+                                                            height: 7),
+                                                        Text(nFormatter.format(
+                                                            item.harga)),
+                                                        const SizedBox(
+                                                            height: 7),
+                                                        FilledButton.tonalIcon(
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              keranjang.update(
+                                                                  item,
+                                                                  (value) =>
+                                                                      ++value,
+                                                                  ifAbsent:
+                                                                      () => 1);
+                                                            });
+                                                          },
+                                                          label: const Text(
+                                                              "Tambah"),
+                                                          icon: Stack(
+                                                              clipBehavior:
+                                                                  Clip.none,
+                                                              children: [
+                                                                const Icon(Icons
+                                                                    .add_shopping_cart),
+                                                                keranjang[item] !=
+                                                                        null
+                                                                    ? Positioned(
+                                                                        top: -7,
+                                                                        right:
+                                                                            -7,
+                                                                        child: Badge(
+                                                                            label: Text(keranjang[item]
+                                                                                .toString())))
+                                                                    : const SizedBox
+                                                                        .shrink()
+                                                              ]),
+                                                        )
+                                                      ]))
+                                            ],
+                                          )),
+                                    ))
+                                .toList());
+                      })
                     ],
                   ))),
           keranjang.isEmpty
