@@ -151,7 +151,7 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
               constraints: const BoxConstraints(maxWidth: 500),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(children: [
                       const BackButton(),
@@ -259,6 +259,99 @@ class _HalamanEditProfileState extends State<HalamanEditProfile> {
                             label: const Text("Simpan")),
                       )
                     ]),
+                    const SizedBox(height: 14),
+                    FilledButton.icon(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      HalamanUser(widget.spInstance)));
+                        },
+                        icon: const Icon(Icons.logout),
+                        label: const Text("Keluar"),
+                        style: FilledButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error)),
+                    const SizedBox(height: 14),
+                    FilledButton.icon(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(20),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Hapus Akun?",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge),
+                                            const SizedBox(height: 7),
+                                            ConstrainedBox(
+                                                constraints:
+                                                    const BoxConstraints(
+                                                        maxWidth: 300),
+                                                child: const Text(
+                                                    "Apakah anda yakin ingin mengapus akun anda? Aksi ini bersifat permanen")),
+                                            const SizedBox(height: 14),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                    child: const Text("Tidak")),
+                                                const SizedBox(width: 7),
+                                                FilledButton(
+                                                    onPressed: () async {
+                                                      imitasiTabelUser.remove(
+                                                          widget
+                                                              .currentUsername);
+                                                      await widget.spInstance
+                                                          .setString(
+                                                              "user",
+                                                              json.encode(
+                                                                  imitasiTabelUser));
+
+                                                      if (!context.mounted) {
+                                                        return;
+                                                      }
+
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      HalamanUser(
+                                                                        widget
+                                                                            .spInstance,
+                                                                        passMessage:
+                                                                            "Akun berhasil terhapus",
+                                                                      )));
+                                                    },
+                                                    style:
+                                                        FilledButton.styleFrom(
+                                                            backgroundColor:
+                                                                Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .error),
+                                                    child: const Text("Yakin"))
+                                              ],
+                                            )
+                                          ],
+                                        )),
+                                  ));
+                        },
+                        icon: const Icon(Icons.delete),
+                        label: const Text("Hapus akun"),
+                        style: FilledButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error)),
                   ]))),
     ));
   }
